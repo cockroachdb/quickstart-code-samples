@@ -1,4 +1,4 @@
-module basic-sample
+module crdb-sample
 
 go 1.17
 

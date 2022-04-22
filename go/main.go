@@ -33,7 +33,7 @@ func main() {
 
 	statements := [3]string{
 		// CREATE the messages table
-		"CREATE TABLE messages (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), message STRING)",
+		"CREATE TABLE IF NOT EXISTS messages (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), message STRING)",
 		// INSERT a row into the messages table
 		"INSERT INTO messages (message) VALUES ('Hello world!')",
 		// SELECT a row from the messages table

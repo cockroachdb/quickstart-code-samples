@@ -16,7 +16,7 @@ def exec_statement(conn, stmt):
 def main():
 
     # Connect to CockroachDB
-    connection = psycopg2.connect(os.environ['DATABASE_URL'])
+    connection = psycopg2.connect(dsn=os.environ["DATABASE_URL"], application_name="$ docs_quickstart_python")
 
     statements = [
         # CREATE the messages table

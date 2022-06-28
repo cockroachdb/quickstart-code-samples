@@ -25,7 +25,12 @@ func execute(conn *pgx.Conn, stmt string) error {
 
 func main() {
 	// Read in connection string
-	connection, err := pgx.Connect(context.Background(), os.Getenv("DATABASE_URL"))
+	config, err := pgx.ParseConfig(os.Getenv("DATABASE_URL"))
+	if err != nil {
+		log.Fatal(err)
+	}
+	config.RuntimeParams["application_name"] = "$ docs_quickstart_go"
+	connection, err := pgx.ConnectConfig(context.Background(), config)
 	if err != nil {
 		log.Fatal(err)
 	}

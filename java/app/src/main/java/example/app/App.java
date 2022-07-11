@@ -37,6 +37,7 @@ public class App {
     public static void main(String[] args) {
         try {
             PGSimpleDataSource ds = new PGSimpleDataSource();
+            ds.setApplicationName("docs_quickstart_java");
             ds.setUrl(Optional.ofNullable(System.getenv("JDBC_DATABASE_URL")).orElseThrow(
   () -> new IllegalArgumentException("JDBC_DATABASE_URL is not set.")));
             Connection connection = ds.getConnection();

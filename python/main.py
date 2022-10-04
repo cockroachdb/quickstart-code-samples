@@ -1,6 +1,7 @@
+import logging
 import os
-import psycopg2
-
+import psycopg
+from psycopg.errors import ProgrammingError
 
 def exec_statement(conn, stmt):
     try:
@@ -9,16 +10,24 @@ def exec_statement(conn, stmt):
             row = cur.fetchone()
             conn.commit()
             if row: print(row[0])
-    except psycopg2.ProgrammingError:
+    except ProgrammingError:
         return
 
 
 def main():
 
     # Connect to CockroachDB
-    connection = psycopg2.connect(dsn=os.environ["DATABASE_URL"], application_name="$ docs_quickstart_python")
+    try:
+        connection = psycopg.connect(os.environ["DATABASE_URL"], application_name="$ docs_quickstart_python")
+
+    except Exception as e:
+        logging.fatal("database connection failed")
+        logging.fatal(e)
+        return
 
     statements = [
+        # Clear out any existing data
+        "DROP TABLE IF EXISTS messages",
         # CREATE the messages table
         "CREATE TABLE IF NOT EXISTS messages (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), message STRING)",
         # INSERT a row into the messages table

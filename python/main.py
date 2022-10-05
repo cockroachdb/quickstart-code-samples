@@ -17,13 +17,7 @@ def exec_statement(conn, stmt):
 def main():
 
     # Connect to CockroachDB
-    try:
-        connection = psycopg.connect(os.environ["DATABASE_URL"], application_name="$ docs_quickstart_python")
-
-    except Exception as e:
-        logging.fatal("database connection failed")
-        logging.fatal(e)
-        return
+    connection = psycopg.connect(os.environ["DATABASE_URL"], application_name="$ docs_quickstart_python")
 
     statements = [
         # Clear out any existing data

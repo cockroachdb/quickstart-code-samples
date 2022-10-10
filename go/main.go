@@ -36,7 +36,9 @@ func main() {
 	}
 	defer connection.Close(context.Background())
 
-	statements := [3]string{
+	statements := [4]string{
+		// Clear any existing data
+		"DROP TABLE IF EXISTS messages",
 		// CREATE the messages table
 		"CREATE TABLE IF NOT EXISTS messages (id UUID PRIMARY KEY DEFAULT gen_random_uuid(), message STRING)",
 		// INSERT a row into the messages table
